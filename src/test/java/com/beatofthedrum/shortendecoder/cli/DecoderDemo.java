@@ -13,6 +13,8 @@ package com.beatofthedrum.shortendecoder.cli;
 
 import com.beatofthedrum.shortendecoder.*;
 
+import java.io.IOException;
+
 public class DecoderDemo
 {
 
@@ -147,7 +149,7 @@ public class DecoderDemo
 		if (sc.error)
         {
             System.err.println("Sorry an error has occured");
-            System.err.println(sc.error_message);
+            System.err.println(sc.error_message.getMessage());
             System.exit(1);
         }
 		
@@ -198,7 +200,7 @@ public class DecoderDemo
 
 		/* will convert the entire buffer */
 		GetBuffer(sc);
-		
+
 		ShortenUtils.ShortenCloseFile(sc);
 
 		if (output_opened != 0)

@@ -18,6 +18,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+import java.io.IOException;
 
 public class PlayerExample
 {
@@ -28,8 +29,7 @@ public class PlayerExample
 	static int output_opened;
 	static String input_file_n = "src/test/resources/fbodemo1.shn";
 
-	static void GetBuffer(ShortenContext sc)
-	{
+	static void GetBuffer(ShortenContext sc) throws IOException {
 	
 		int total_unpacked_bytes = 0;
 		int bytes_unpacked;
@@ -83,7 +83,7 @@ public class PlayerExample
 		if (sc.error)
         {
             System.err.println("Sorry an error has occured");
-            System.err.println(sc.error_message);
+            System.err.println(sc.error_message.getMessage());
             System.exit(1);
         }
 		
@@ -129,8 +129,11 @@ public class PlayerExample
 		}
 
 		/* will convert the entire buffer */
-		GetBuffer(sc);
-		
+		try {
+			GetBuffer(sc);
+		} catch (IOException e) {
+		}
+
 		ShortenUtils.ShortenCloseFile(sc);
 
 		if (output_opened != 0)

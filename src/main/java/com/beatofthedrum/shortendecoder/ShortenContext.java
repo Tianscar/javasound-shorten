@@ -13,13 +13,14 @@ package com.beatofthedrum.shortendecoder;
 
 public class ShortenContext
 {
-	MyStream shn_stream = new MyStream();
+	public ShortenInputStream shn_stream;
 	public boolean error;
-	public String error_message = "";
+	public Exception error_message = null;
+	//public String error_message = "";
 	int num_channels = 0;
 	int sample_rate = 0;	// e.g. 44100 samples a second
 	int sample_size = 0;	// e.g. 16 bit samples
-	int version = 0;	// version of Shorten file
+	public int version = 0;	// version of Shorten file
 	int[] getbuf = new int[Defines.BUFSIZ];
 	public int ftype = 0;
 	public int original_ftype = 0;		// 0 = WAV, 1 = AIFF
