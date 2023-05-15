@@ -28,8 +28,7 @@ public class ShortenAudioFileReader extends AudioFileReader {
         if (stream instanceof ShortenInputStream) sc = ShortenUtils.ShortenOpenInput((ShortenInputStream) stream);
         else {
             stream.mark(1000);
-            sc = ShortenUtils.ShortenOpenFileInput(stream instanceof DataInputStream ? (DataInputStream) stream :
-                    new DataInputStream(stream));
+            sc = ShortenUtils.ShortenOpenFileInput(stream);
         }
         if (sc.error) {
             if (!(stream instanceof ShortenInputStream)) stream.reset();
@@ -40,7 +39,7 @@ public class ShortenAudioFileReader extends AudioFileReader {
 
     @Override
     public AudioFileFormat getAudioFileFormat(URL url) throws UnsupportedAudioFileException, IOException {
-        ShortenContext sc = ShortenUtils.ShortenOpenFileInput(new DataInputStream(url.openStream()));
+        ShortenContext sc = ShortenUtils.ShortenOpenFileInput(url.openStream());
         throwExceptions(sc);
         try {
             return getAudioFileFormat(sc, new HashMap<>(), new HashMap<>());
@@ -52,7 +51,7 @@ public class ShortenAudioFileReader extends AudioFileReader {
 
     @Override
     public AudioFileFormat getAudioFileFormat(File file) throws UnsupportedAudioFileException, IOException {
-        ShortenContext sc = ShortenUtils.ShortenOpenFileInput(new DataInputStream(Files.newInputStream(file.toPath(), READ)));
+        ShortenContext sc = ShortenUtils.ShortenOpenFileInput(Files.newInputStream(file.toPath(), READ));
         throwExceptions(sc);
         try {
             return getAudioFileFormat(sc, new HashMap<>(), new HashMap<>());
@@ -71,8 +70,7 @@ public class ShortenAudioFileReader extends AudioFileReader {
         }
         stream.mark(1000);
         try {
-            ShortenContext sc = ShortenUtils.ShortenOpenFileInput(stream instanceof DataInputStream ?
-                    (DataInputStream) stream : new DataInputStream(stream));
+            ShortenContext sc = ShortenUtils.ShortenOpenFileInput(stream);
             throwExceptions(sc);
             return new ShortenAudioInputStream(sc, getAudioFormat(sc, new HashMap<>()), ShortenUtils.ShortenGetNumSamples(sc));
         }
@@ -86,7 +84,7 @@ public class ShortenAudioFileReader extends AudioFileReader {
     public AudioInputStream getAudioInputStream(URL url) throws UnsupportedAudioFileException, IOException {
         InputStream stream = url.openStream();
         try {
-            ShortenContext sc = ShortenUtils.ShortenOpenFileInput(new DataInputStream(stream));
+            ShortenContext sc = ShortenUtils.ShortenOpenFileInput(stream);
             throwExceptions(sc);
             return new ShortenAudioInputStream(sc, getAudioFormat(sc, new HashMap<>()), ShortenUtils.ShortenGetNumSamples(sc));
         }
@@ -100,7 +98,7 @@ public class ShortenAudioFileReader extends AudioFileReader {
     public AudioInputStream getAudioInputStream(File file) throws UnsupportedAudioFileException, IOException {
         InputStream stream = Files.newInputStream(file.toPath(), READ);
         try {
-            ShortenContext sc = ShortenUtils.ShortenOpenFileInput(new DataInputStream(stream));
+            ShortenContext sc = ShortenUtils.ShortenOpenFileInput(stream);
             throwExceptions(sc);
             return new ShortenAudioInputStream(sc, getAudioFormat(sc, new HashMap<>()), ShortenUtils.ShortenGetNumSamples(sc));
         }
