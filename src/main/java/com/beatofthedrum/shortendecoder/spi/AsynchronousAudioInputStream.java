@@ -7,8 +7,6 @@ import java.io.InputStream;
 
 abstract class AsynchronousAudioInputStream extends AudioInputStream implements CircularBuffer.Trigger {
 
-	private static final int MAX_SKIP_BUFFER_SIZE = 2048;
-
 	private byte[] singleByte;
 	protected final CircularBuffer buffer;
 
@@ -37,29 +35,6 @@ abstract class AsynchronousAudioInputStream extends AudioInputStream implements 
 	@Override
 	public int read(byte[] b, int off, int len) throws IOException {
 		return buffer.read(b, off, len);
-	}
-
-	@Override
-	public long skip(long n) throws IOException {
-
-		long remaining = n;
-		int nr;
-
-		if (n <= 0) {
-			return 0;
-		}
-
-		int size = (int) Math.min(MAX_SKIP_BUFFER_SIZE, remaining);
-		byte[] skipBuffer = new byte[size];
-		while (remaining > 0) {
-			nr = read(skipBuffer, 0, (int)Math.min(size, remaining));
-			if (nr < 0) {
-				break;
-			}
-			remaining -= nr;
-		}
-
-		return n - remaining;
 	}
 
 	@Override
