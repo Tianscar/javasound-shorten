@@ -34,4 +34,9 @@ class ShortenAudioInputStream extends AsynchronousAudioInputStream {
         }
     }
 
+    @Override
+    public long skip(long n) throws IOException {
+        return sc.shn_stream.skip(n);
+    }
+
 }
