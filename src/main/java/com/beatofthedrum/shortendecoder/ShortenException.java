@@ -1,8 +1,6 @@
 package com.beatofthedrum.shortendecoder;
 
-import java.io.IOException;
-
-public class ShortenException extends IOException {
+public class ShortenException extends java.io.IOException {
     private static final long serialVersionUID = -8852375846383609864L;
     public ShortenException(String message) {
         super(message);

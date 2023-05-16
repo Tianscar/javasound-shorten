@@ -10,9 +10,6 @@
 */
 package com.beatofthedrum.shortendecoder;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 public class ShortenUtils
 {
 
@@ -59,14 +56,8 @@ public class ShortenUtils
 {1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,0,15,255,143,254,253,252,251,250,249,248,247,246,245,244,243,242,241,240,239,238,237,236,235,234,233,232,231,230,229,228,227,226,225,224,223,222,221,220,219,218,217,216,215,214,213,212,211,210,209,208,207,206,205,204,203,202,201,200,199,198,197,196,195,194,193,192,191,190,189,188,187,186,185,184,183,182,181,180,179,178,177,176,175,174,173,172,171,170,169,168,167,166,165,164,163,162,161,160,159,158,157,156,155,154,153,152,151,150,149,148,147,146,145,144,142,141,140,139,138,137,136,135,134,133,132,131,130,129,128},
 {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,0,255,254,253,252,251,250,249,248,247,246,245,244,243,242,241,240,239,238,237,236,235,234,233,232,231,230,229,228,227,226,225,224,223,222,221,220,219,218,217,216,215,214,213,212,211,210,209,208,207,206,205,204,203,202,201,200,199,198,197,196,195,194,193,192,191,190,189,188,187,186,185,184,183,182,181,180,179,178,177,176,175,174,173,172,171,170,169,168,167,166,165,164,163,162,161,160,159,158,157,156,155,154,153,152,151,150,149,148,147,146,145,144,143,142,141,140,139,138,137,136,135,134,133,132,131,130,129,128}
 };
-
-	public static ShortenContext ShortenOpenFileInput(InputStream input_stream)
-	{
-		return ShortenOpenInput(new ShortenInputStream(input_stream));
-	}
-
 	
-    public static ShortenContext ShortenOpenInput(ShortenInputStream input_stream)
+    public static ShortenContext ShortenOpenFileInput(java.io.DataInputStream input_stream)
     {
 		ShortenContext sc = new ShortenContext();
 		
@@ -378,14 +369,14 @@ public class ShortenUtils
 		try {
 			return mDoInitialDecode(sc);
 		}
-		catch (IOException e) {
+		catch (java.io.IOException e) {
 			sc.error_message = e;
 			sc.error = true;
 			return false;
 		}
 	}
 
-	private static boolean mDoInitialDecode(ShortenContext sc) throws IOException {
+	private static boolean mDoInitialDecode(ShortenContext sc) throws java.io.IOException {
 		int[] magic = Defines.MAGIC;
 		int i = 0;
 //		qlpc = NULL;
@@ -545,14 +536,14 @@ public class ShortenUtils
 		try {
 			return mDecodeBuffer(sc);
 		}
-		catch (IOException e) {
+		catch (java.io.IOException e) {
 			sc.error_message = e;
 			sc.error = true;
 			return 0;
 		}
 	}
 	
-	private static long mDecodeBuffer(ShortenContext sc) throws IOException {
+	private static long mDecodeBuffer(ShortenContext sc) throws java.io.IOException {
 		int bytesDecoded = 0;
 		int i;
 		long cbufferminus1 = 0;
@@ -909,7 +900,7 @@ public class ShortenUtils
 		nbitget  = 0;
 	}
 	
-	private static long uint_get(int nbit, ShortenContext sc) throws IOException {
+	private static long uint_get(int nbit, ShortenContext sc) throws java.io.IOException {
 		if(sc.version == 0)
 		{
 			return(uvar_get(nbit, sc));
@@ -920,13 +911,13 @@ public class ShortenUtils
 		}
 	}
 	
-	private static long ulong_get( ShortenContext sc) throws IOException {
+	private static long ulong_get( ShortenContext sc) throws java.io.IOException {
 		long nbit = uvar_get(Defines.ULONGSIZE, sc);
 		return(uvar_get((int)nbit, sc));
 	}
 	
 	
-	private static long uvar_get(int nbin, ShortenContext sc) throws IOException {
+	private static long uvar_get(int nbin, ShortenContext sc) throws java.io.IOException {
 		long result;
 		
 		if(nbitget == 0) 
@@ -964,7 +955,7 @@ public class ShortenUtils
 		return(result);
 	}
 	
-	private static long var_get(int nbin, ShortenContext sc) throws IOException {
+	private static long var_get(int nbin, ShortenContext sc) throws java.io.IOException {
 		long uvar = uvar_get(nbin + 1, sc);		
 		
 		if( (uvar & 1) > 0) 
@@ -973,7 +964,7 @@ public class ShortenUtils
 			return((long) (uvar >> 1));
 	}
 	
-	private static long word_get(ShortenContext sc) throws IOException {
+	private static long word_get(ShortenContext sc) throws java.io.IOException {
 		long buffer;
 		int b0;
 		int b1;

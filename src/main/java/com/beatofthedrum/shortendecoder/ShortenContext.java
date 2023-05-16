@@ -13,7 +13,7 @@ package com.beatofthedrum.shortendecoder;
 
 public class ShortenContext
 {
-	public ShortenInputStream shn_stream;
+	public java.io.DataInputStream shn_stream;
 	public boolean error;
 	public Exception error_message = null;
 	//public String error_message = "";

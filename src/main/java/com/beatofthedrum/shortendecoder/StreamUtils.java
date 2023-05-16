@@ -11,12 +11,10 @@
 
 package com.beatofthedrum.shortendecoder;
 
-import java.io.IOException;
-
 class StreamUtils
 {
-	public static int stream_read(ShortenInputStream stream, int size, int[] buf, int startPos)
-			throws IOException {
+	public static int stream_read(java.io.DataInputStream stream, int size, int[] buf, int startPos)
+			throws java.io.IOException {
 		int bytes_read;
 		byte[] bytebuf = new byte[size];
 
