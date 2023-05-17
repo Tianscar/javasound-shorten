@@ -8,7 +8,7 @@
 ** Distributed under the BSD Software License (see license.txt)  
 **
 */
-package com.beatofthedrum.shortendecoder;
+package com.beatofthedrum.shortendecoder.test;
 
 public class WavWriter
 {

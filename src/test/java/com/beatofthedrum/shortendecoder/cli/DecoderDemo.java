@@ -12,8 +12,7 @@
 package com.beatofthedrum.shortendecoder.cli;
 
 import com.beatofthedrum.shortendecoder.*;
-
-import java.io.IOException;
+import com.beatofthedrum.shortendecoder.test.WavWriter;
 
 public class DecoderDemo
 {

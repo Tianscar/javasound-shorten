@@ -11,11 +11,13 @@
 
 package com.beatofthedrum.shortendecoder;
 
+import java.io.IOException;
+
 public class ShortenContext
 {
 	public java.io.DataInputStream shn_stream;
 	public boolean error;
-	public Exception error_message = null;
+	public IOException error_message = null;
 	//public String error_message = "";
 	int num_channels = 0;
 	int sample_rate = 0;	// e.g. 44100 samples a second

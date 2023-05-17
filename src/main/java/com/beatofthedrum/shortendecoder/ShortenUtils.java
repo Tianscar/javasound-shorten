@@ -786,7 +786,7 @@ public class ShortenUtils
 					}
 					break;
 				case Defines.FN_BLOCKSIZE:
-					blocksize = (int)uint_get((int) (Math.log((double) blocksize) / Defines.M_LN2), sc);
+					blocksize = (int)uint_get((int) (Math.log(blocksize) / Defines.M_LN2), sc);
 					break;
 				case Defines.FN_BITSHIFT:
 					bitshift = (int)uvar_get(Defines.BITSHIFTSIZE, sc);

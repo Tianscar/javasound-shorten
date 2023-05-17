@@ -13,12 +13,12 @@ package com.beatofthedrum.shortendecoder.test;
 
 import com.beatofthedrum.shortendecoder.ShortenContext;
 import com.beatofthedrum.shortendecoder.ShortenUtils;
+import com.beatofthedrum.shortendecoder.spi.ShortenAudioFormat;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.*;
 import java.io.IOException;
+
+import static javax.sound.sampled.AudioSystem.NOT_SPECIFIED;
 
 public class PlayerExample
 {
@@ -29,12 +29,12 @@ public class PlayerExample
 	static int output_opened;
 	static String input_file_n = "src/test/resources/fbodemo1.shn";
 
-	static void GetBuffer(ShortenContext sc) throws IOException {
-	
+	static void GetBuffer(ShortenContext sc, int num_channels, int byteps)
+	{
+
 		int total_unpacked_bytes = 0;
 		int bytes_unpacked;
-		
-			
+
 		while (true)
 		{
 			bytes_unpacked = 0;
@@ -51,7 +51,13 @@ public class PlayerExample
 			if (bytes_unpacked == 0 || sc.quitActivated==true)
 				break;
 		} // end of while
-		
+
+	}
+
+	private static int frameSize(int channels, int sampleSizeInBits) {
+		return (channels == NOT_SPECIFIED || sampleSizeInBits == NOT_SPECIFIED)?
+				NOT_SPECIFIED:
+				((sampleSizeInBits + 7) / 8) * channels;
 	}
 
 	public static void main(String [] args)
@@ -116,23 +122,23 @@ public class PlayerExample
 
 		try
 		{
-			output_stream = AudioSystem.getSourceDataLine(audioFormat);
-			output_stream.open();
+			output_stream = (SourceDataLine) AudioSystem.getLine(new SourceDataLine.Info(SourceDataLine.class, audioFormat));
+			output_stream.open(audioFormat);
 			output_stream.start();
 			output_opened = 1;
 		}
-		catch(LineUnavailableException e)
+		catch (LineUnavailableException e)
 		{
 			System.out.println("Cannot open output line with audio format: " + audioFormat + " : Error : " + 3);
 			output_opened = 0;
+			ShortenUtils.ShortenCloseFile(sc);
 			System.exit(1);
 		}
 
 		/* will convert the entire buffer */
-		try {
-			GetBuffer(sc);
-		} catch (IOException e) {
-		}
+		GetBuffer(sc, num_channels, byteps);
+		output_stream.drain();
+		output_stream.stop();
 
 		ShortenUtils.ShortenCloseFile(sc);
 
