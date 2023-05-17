@@ -45,7 +45,6 @@ public class ShortenAudioFormat extends AudioFormat {
 
     private static Map<String, Object> generateProperties(ShortenContext sc) {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("vbr", true);
         properties.put("bitrate", ShortenUtils.ShortenGetBitsPerSample(sc) * ShortenUtils.ShortenGetSampleRate(sc));
         
         properties.put("shn.ftype", sc.ftype);
