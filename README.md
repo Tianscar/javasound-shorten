@@ -21,7 +21,7 @@ repositories {
 ```groovy
 dependencies {
     ...
-    implementation 'com.tianscar.javasound:javasound-shorten:3.6.1'
+    implementation 'com.tianscar.javasound:javasound-shorten:3.6.2'
 }
 ```
 

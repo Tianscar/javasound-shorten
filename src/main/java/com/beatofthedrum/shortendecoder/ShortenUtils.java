@@ -413,6 +413,9 @@ public class ShortenUtils
 				else 
 				{
 					nscan = 0;
+					sc.error = true;
+					sc.error_message = new ShortenException("not a SHN file");
+					return false;
 				}
 				version = Defines.MAX_VERSION + 1;
 			}

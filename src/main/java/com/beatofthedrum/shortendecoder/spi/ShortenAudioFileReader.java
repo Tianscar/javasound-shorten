@@ -40,8 +40,8 @@ public class ShortenAudioFileReader extends AudioFileReader {
     public AudioFileFormat getAudioFileFormat(URL url) throws UnsupportedAudioFileException, IOException {
         URLConnection connection = url.openConnection();
         ShortenContext sc = ShortenUtils.ShortenOpenFileInput(new DataInputStream(connection.getInputStream()));
-        throwExceptions(sc);
         try {
+            throwExceptions(sc);
             return new ShortenAudioFileFormat(sc, connection.getContentLengthLong());
         }
         finally {
@@ -52,8 +52,8 @@ public class ShortenAudioFileReader extends AudioFileReader {
     @Override
     public AudioFileFormat getAudioFileFormat(File file) throws UnsupportedAudioFileException, IOException {
         ShortenContext sc = ShortenUtils.ShortenOpenFileInput(new DataInputStream(Files.newInputStream(file.toPath(), READ)));
-        throwExceptions(sc);
         try {
+            throwExceptions(sc);
             return new ShortenAudioFileFormat(sc, file.length());
         }
         finally {

@@ -13,10 +13,11 @@ package com.beatofthedrum.shortendecoder.test;
 
 import com.beatofthedrum.shortendecoder.ShortenContext;
 import com.beatofthedrum.shortendecoder.ShortenUtils;
-import com.beatofthedrum.shortendecoder.spi.ShortenAudioFormat;
 
-import javax.sound.sampled.*;
-import java.io.IOException;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 
 import static javax.sound.sampled.AudioSystem.NOT_SPECIFIED;
 
