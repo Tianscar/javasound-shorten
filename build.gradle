@@ -10,7 +10,7 @@ ext {
     libraryVendorName = 'Tianscar'
 
     libraryVersionCode = 1
-    libraryVersionName = '3.6.2'
+    libraryVersionName = '3.6.1'
 
     librarySourceCompatibility = JavaVersion.VERSION_1_8
     libraryTargetCompatibility = JavaVersion.VERSION_1_8
