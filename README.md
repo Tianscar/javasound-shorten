@@ -1,3 +1,5 @@
+WARNING: THIS PROJECT IS NO LONGER MAINTAINED. MOVED TO: https://github.com/jseproject/jse-spi
+
 # Java Implementation of Shorten Decoder
 This is a fork of [Java Implementation of Shorten Decoder](https://github.com/soiaf/Java-Shorten-decoder), with JavaSound SPI support.
 
